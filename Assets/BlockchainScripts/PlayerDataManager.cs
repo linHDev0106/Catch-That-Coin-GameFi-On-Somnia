@@ -7,6 +7,7 @@ public class PlayerDataManager : MonoBehaviour
     public int vipNFT;
     public int gemToken;
     public int highestScore;
+    public string walletAddress;
     public string walletBalance; // dạng string vì bal.displayValue là string
     // ✅ Thêm biến để đánh dấu đã lấy dữ liệu chain xong
     public bool isChainInitialized = false;

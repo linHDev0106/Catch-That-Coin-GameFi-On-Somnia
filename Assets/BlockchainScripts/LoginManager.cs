@@ -19,6 +19,8 @@ public class LoginManager : MonoBehaviour
             string address = await ThirdwebManager.Instance.SDK.Wallet.GetAddress();
             Debug.Log($"✅ Wallet address: {address}");
 
+            PlayerDataManager.Instance.walletAddress = address;
+
             // Lấy contract NFT
             var contract = ThirdwebManager.Instance.SDK.GetContract(GameConfig.NFTTokenGateContractAddress);
 

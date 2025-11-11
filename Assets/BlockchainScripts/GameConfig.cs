@@ -9,4 +9,6 @@
     // Địa chỉ contract ERC20 - GEM Token
     public static readonly string TokenGemContractAddress = "0xF47943625e94be853DD9EA7976125353E93dC5f3";
 
+    public static readonly string somniaDataStreamAPI = "https://somnia-datastream-with-ai-backend.onrender.com/api";
+
 }

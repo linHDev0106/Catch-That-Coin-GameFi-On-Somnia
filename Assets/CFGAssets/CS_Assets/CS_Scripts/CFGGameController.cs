@@ -127,6 +127,8 @@ namespace CoinFrenzyGame
 		// A general use index
 		internal int index = 0;
 
+		public SomniaDataStreamClient somniaDataStreamClient;
+
 		void Awake()
 		{
 			// Activate the pause canvas early on, so it can detect info about sound volume state
@@ -679,7 +681,7 @@ namespace CoinFrenzyGame
 				
 				//Write the score text
 
-				gameOverCanvas.Find("Base/Texts/TextScore").GetComponent<Text>().text = "SCORE " + (score + 10*PlayerDataManager.Instance.vipNFT).ToString();
+				gameOverCanvas.Find("Base/Texts/TextScore").GetComponent<Text>().text = "SCORE " + ((int)score + 10*PlayerDataManager.Instance.vipNFT).ToString();
 
 				int currentCoin = PlayerPrefs.GetInt("coin_balance", 0);
 				int newCoin = currentCoin + (int)score + 10 * PlayerDataManager.Instance.vipNFT;
@@ -687,14 +689,18 @@ namespace CoinFrenzyGame
 				PlayerPrefs.SetInt("coin_balance", newCoin);
 				PlayerPrefs.Save();
 
+				int saveScore = (int)score + 10 * PlayerDataManager.Instance.vipNFT;
+
+				somniaDataStreamClient.SubmitScore(PlayerDataManager.Instance.walletAddress, saveScore);
+
 				//Check if we got a high score
-				if ( score > highScore )    
+				if (saveScore > highScore )    
 				{
-					highScore = score;
+					highScore = saveScore;
 					
 					//Register the new high score
 					#if UNITY_5_3 || UNITY_5_3_OR_NEWER
-					PlayerPrefs.SetFloat(SceneManager.GetActiveScene().name + "HighScore", score);
+					PlayerPrefs.SetFloat(SceneManager.GetActiveScene().name + "HighScore", saveScore);
 					#else
 					PlayerPrefs.SetFloat(Application.loadedLevelName + "HighScore", score);
 					#endif
